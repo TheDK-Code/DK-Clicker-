@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<p class="Title"> DK Clicker!</p>
+	<p class="underline">DK Clicker!</p>
+<button class="Coin" onclick="addCoin()">🪙</button>
+<p>Coins: <span id="coinCount">0</span></p>
     
-    
-    
-    
+
+<script>
+	let coins = 0;
+
+	function addCoin() {
+		coins += 1;
+		document.getElementById("coinCount").textContent = coins;
+	}
+</script>
+
+
+
+
+
 <style>
-	.Title {
-    	text-decoration-underline: Title;
+	.underline {
+    	font-size: 50px;
+        text-decoration-line: underline;
         text-decoration-style: solid;
         text-decoration-color: Black;
 }
+
+	.Coin {
+    	font-size: 100px;
+        background-color: red;
+        border-color: green;
+        padding: 12px 70px
+        
+}
+    
+    
+    
 </style>
 </body>
 </html>
