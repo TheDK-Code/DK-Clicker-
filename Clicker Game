@@ -2,41 +2,80 @@
 <html>
 <body>
 	<p class="underline">DK Clicker!</p>
-<button class="Coin" onclick="addCoin()">🪙</button>
-<p>Coins: <span id="coinCount">0</span></p>
-    
+	<button class="Coin" onclick="addCoin()">🪙</button>
+	<p>Coins: <span id="coinCount">0</span></p>
+	<button class="Auto" onclick="buyAuto(1, 50)">1 coin per sec. Cost: 50.</button>
+	<button class="Auto" onclick="buyAuto(2, 100)">2 coins per sec. Cost: 100.</button>
+	<button class="Auto" onclick="buyAuto(5, 250)">5 coins per sec. Cost: 250.</button>
+	<button class="Auto" onclick="buyAuto(50, 2500)">50 coins per sec. Cost: 2,500.</button>
+	<button class="Auto" onclick="buyAuto(100, 5000)">100 coins per sec. Cost: 5,000.</button>
+	<button class="Auto" onclick="buyAuto(500, 25000)">500 coins per sec. Cost: 25,000.</button>
+	<button class="Auto" onclick="buyAuto(1000, 50000)">1,000 coins per sec. Cost: 50,000.</button>
+	<button class="Auto" onclick="buyAuto(50000, 2500000)">50,000 coins per sec. Cost: 2,500,000.</button>
+	<button class="Auto" onclick="buyAuto(100000, 5000000)">100,000 coins per sec. Cost: 5,000,000.</button>
+	<button class="Auto" onclick="buyAuto(500000, 25000000)">500,000 coins per sec. Cost: 25,000,000.</button>
+	<button class="Auto" onclick="buyAuto(1000000, 50000000)">1,000,000 coins per sec. Cost: 50,000,000.</button>
+	<button class="Auto" onclick="buyAuto(1000000000, 50000000000)">1 billion coins per sec. Cost: 50,000,000,000.</button>
+	<p id="autoStatus">Coins per sec: 0 coins per second</p>
 
-<script>
-	let coins = 0;
+	<script>
+		let coins = 0;
+		let autoRate = 0;
 
-	function addCoin() {
-		coins += 1;
-		document.getElementById("coinCount").textContent = coins;
-	}
-</script>
+		function updateCoins() {
+			document.getElementById("coinCount").textContent = coins;
+		}
 
+		function addCoin() {
+			coins += 1;
+			updateCoins();
+		}
 
+		function buyAuto(rate, cost) {
+			if (coins > cost) {
+				coins -= cost;
+				autoRate += rate;
+				updateCoins();
+				document.getElementById("autoStatus").textContent =
+					`Coins per sec: ${autoRate} coins per second`;
+			} else {
+				document.getElementById("autoStatus").textContent =
+					`You need more than ${cost} coins.`;
+			}
+		}
 
+		setInterval(function () {
+			if (autoRate > 0) {
+				coins += autoRate;
+				updateCoins();
+			}
+		}, 1000);
+	</script>
 
+	<style>
+		.underline {
+			font-size: 50px;
+			text-decoration-line: underline;
+			text-decoration-style: solid;
+			text-decoration-color: Black;
+		}
 
-<style>
-	.underline {
-    	font-size: 50px;
-        text-decoration-line: underline;
-        text-decoration-style: solid;
-        text-decoration-color: Black;
-}
+		.Coin {
+			font-size: 100px;
+			background-color: red;
+			border-color: green;
+			padding: 12px 70px;
+		}
 
-	.Coin {
-    	font-size: 100px;
-        background-color: red;
-        border-color: green;
-        padding: 12px 70px
-        
-}
-    
-    
-    
-</style>
+		.Auto {
+			display: block;
+			margin-left: 200px;
+			margin-bottom: 8px;
+			color: gold;
+			background-color: red;
+			border-color: red;
+			padding: 6px 16px;
+		}
+	</style>
 </body>
 </html>
