@@ -1,81 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DK Clicker!</title>
+
+<style>
+body {
+    background: #2aff00;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.underline {
+    font-size: 50px;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.Coin {
+    font-size: 100px;
+    background-color: red;
+    border: 4px solid green;
+    padding: 12px 70px;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.Coin:hover {
+    transform: scale(1.05);
+}
+
+.Auto {
+    display: block;
+    margin: 8px auto;
+    color: gold;
+    background-color: red;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.Auto:hover {
+    background-color: darkred;
+}
+
+#saveCode {
+    width: 300px;
+    padding: 8px;
+}
+
+#autoStatus,
+#saveStatus {
+    font-weight: bold;
+}
+</style>
+</head>
 <body>
-	<p class="underline">DK Clicker!</p>
-	<button class="Coin" onclick="addCoin()">🪙</button>
-	<p>Coins: <span id="coinCount">0</span></p>
-	<button class="Auto" onclick="buyAuto(1, 50)">1 coin per sec. Cost: 50.</button>
-	<button class="Auto" onclick="buyAuto(2, 100)">2 coins per sec. Cost: 100.</button>
-	<button class="Auto" onclick="buyAuto(5, 250)">5 coins per sec. Cost: 250.</button>
-	<button class="Auto" onclick="buyAuto(50, 2500)">50 coins per sec. Cost: 2,500.</button>
-	<button class="Auto" onclick="buyAuto(100, 5000)">100 coins per sec. Cost: 5,000.</button>
-	<button class="Auto" onclick="buyAuto(500, 25000)">500 coins per sec. Cost: 25,000.</button>
-	<button class="Auto" onclick="buyAuto(1000, 50000)">1,000 coins per sec. Cost: 50,000.</button>
-	<button class="Auto" onclick="buyAuto(50000, 2500000)">50,000 coins per sec. Cost: 2,500,000.</button>
-	<button class="Auto" onclick="buyAuto(100000, 5000000)">100,000 coins per sec. Cost: 5,000,000.</button>
-	<button class="Auto" onclick="buyAuto(500000, 25000000)">500,000 coins per sec. Cost: 25,000,000.</button>
-	<button class="Auto" onclick="buyAuto(1000000, 50000000)">1,000,000 coins per sec. Cost: 50,000,000.</button>
-	<button class="Auto" onclick="buyAuto(1000000000, 50000000000)">1 billion coins per sec. Cost: 50,000,000,000.</button>
-	<p id="autoStatus">Coins per sec: 0 coins per second</p>
 
-	<script>
-		let coins = 0;
-		let autoRate = 0;
+<p class="underline">DK Clicker!</p>
 
-		function updateCoins() {
-			document.getElementById("coinCount").textContent = coins;
-		}
+<button class="Coin" onclick="addCoin()">🪙</button>
 
-		function addCoin() {
-			coins += 1;
-			updateCoins();
-		}
+<h2>Coins: <span id="coinCount">0</span></h2>
 
-		function buyAuto(rate, cost) {
-			if (coins > cost) {
-				coins -= cost;
-				autoRate += rate;
-				updateCoins();
-				document.getElementById("autoStatus").textContent =
-					`Coins per sec: ${autoRate} coins per second`;
-			} else {
-				document.getElementById("autoStatus").textContent =
-					`You need more than ${cost} coins.`;
-			}
-		}
+<h3>Auto Clickers</h3>
 
-		setInterval(function () {
-			if (autoRate > 0) {
-				coins += autoRate;
-				updateCoins();
-			}
-		}, 1000);
-	</script>
+<button class="Auto" onclick="buyAuto(1, 50)">1 coin per sec. Cost: 50</button>
+<button class="Auto" onclick="buyAuto(2, 100)">2 coins per sec. Cost: 100</button>
+<button class="Auto" onclick="buyAuto(5, 250)">5 coins per sec. Cost: 250</button>
+<button class="Auto" onclick="buyAuto(50, 2500)">50 coins per sec. Cost: 2,500</button>
+<button class="Auto" onclick="buyAuto(100, 5000)">100 coins per sec. Cost: 5,000</button>
+<button class="Auto" onclick="buyAuto(500, 25000)">500 coins per sec. Cost: 25,000</button>
+<button class="Auto" onclick="buyAuto(1000, 50000)">1,000 coins per sec. Cost: 50,000</button>
+<button class="Auto" onclick="buyAuto(50000, 2500000)">50,000 coins per sec. Cost: 2,500,000</button>
+<button class="Auto" onclick="buyAuto(100000, 5000000)">100,000 coins per sec. Cost: 5,000,000</button>
+<button class="Auto" onclick="buyAuto(500000, 25000000)">500,000 coins per sec. Cost: 25,000,000</button>
+<button class="Auto" onclick="buyAuto(1000000, 50000000)">1,000,000 coins per sec. Cost: 50,000,000</button>
+<button class="Auto" onclick="buyAuto(1000000000, 50000000000)">1 billion coins per sec. Cost: 50,000,000,000</button>
 
-	<style>
-		.underline {
-			font-size: 50px;
-			text-decoration-line: underline;
-			text-decoration-style: solid;
-			text-decoration-color: Black;
-		}
+<p id="autoStatus">Coins per sec: 0 coins per second</p>
+<button id="pauseButton" onclick="togglePause()">Pause Auto Clickers</button>
 
-		.Coin {
-			font-size: 100px;
-			background-color: red;
-			border-color: green;
-			padding: 12px 70px;
-		}
+<hr>
 
-		.Auto {
-			display: block;
-			margin-left: 200px;
-			margin-bottom: 8px;
-			color: gold;
-			background-color: red;
-			border-color: red;
-			padding: 6px 16px;
-		}
-	</style>
+<h3>Move Your Save To Another Device</h3>
+
+<button onclick="exportSave()">Create Save Code</button>
+
+<br><br>
+
+<input id="saveCode" type="text" placeholder="Paste save code here">
+
+<button onclick="importSave()">Load Save Code</button>
+
+<p id="saveStatus"></p>
+
+<script>
+let coins = Number(localStorage.getItem("dkClickerCoins")) || 0;
+let autoRate = Number(localStorage.getItem("dkClickerAutoRate")) || 0;
+let isPaused = localStorage.getItem("dkClickerPaused") === "true";
+let lastSavedAt = Number(localStorage.getItem("dkClickerLastSavedAt")) || Date.now();
+let autoStatusTimeout;
+
+function updateCoins() {
+    document.getElementById("coinCount").textContent =
+        Math.floor(coins).toLocaleString();
+
+    localStorage.setItem("dkClickerCoins", coins);
+
+    lastSavedAt = Date.now();
+    localStorage.setItem("dkClickerLastSavedAt", lastSavedAt);
+}
+
+if (!isPaused) {
+    coins += autoRate * Math.max(0, (Date.now() - lastSavedAt) / 1000);
+}
+
+updateCoins();
+updatePauseButton();
+
+document.getElementById("autoStatus").textContent =
+    `Coins per sec: ${autoRate.toLocaleString()} coins per second`;
+
+function exportSave() {
+    const saveCode = btoa(JSON.stringify({
+        coins,
+        autoRate
+    }));
+
+    const input = document.getElementById("saveCode");
+    input.value = saveCode;
+    input.select();
+
+    document.getElementById("saveStatus").textContent =
+        "Save code created. Copy it to your other device.";
+}
+
+function importSave() {
+    try {
+        const save = JSON.parse(
+            atob(document.getElementById("saveCode").value.trim())
+        );
+
+        if (
+            !Number.isFinite(save.coins) ||
+            save.coins < 0 ||
+            !Number.isFinite(save.autoRate) ||
+            save.autoRate < 0
+        ) {
+            throw new Error();
+        }
+
+        coins = save.coins;
+        autoRate = save.autoRate;
+
+        localStorage.setItem("dkClickerAutoRate", autoRate);
+
+        updateCoins();
+
+        document.getElementById("autoStatus").textContent =
+            `Coins per sec: ${autoRate.toLocaleString()} coins per second`;
+
+        document.getElementById("saveStatus").textContent =
+            "Save loaded successfully!";
+    } catch {
+        document.getElementById("saveStatus").textContent =
+            "That save code is not valid.";
+    }
+}
+
+function updatePauseButton() {
+    document.getElementById("pauseButton").textContent =
+        isPaused ? "Resume Auto Clickers" : "Pause Auto Clickers";
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    localStorage.setItem("dkClickerPaused", isPaused);
+    lastSavedAt = Date.now();
+    localStorage.setItem("dkClickerLastSavedAt", lastSavedAt);
+    updatePauseButton();
+}
+
+function addCoin() {
+    coins++;
+    updateCoins();
+}
+
+function buyAuto(rate, cost) {
+    if (coins >= cost) {
+        coins -= cost;
+        autoRate += rate;
+
+        localStorage.setItem("dkClickerAutoRate", autoRate);
+
+        updateCoins();
+
+        document.getElementById("autoStatus").textContent =
+            `Coins per sec: ${autoRate.toLocaleString()} coins per second`;
+    } else {
+        const status = document.getElementById("autoStatus");
+        const message = `You need ${cost.toLocaleString()} coins.`;
+
+        clearTimeout(autoStatusTimeout);
+
+        status.textContent = message;
+
+        autoStatusTimeout = setTimeout(() => {
+            status.textContent =
+                `Coins per sec: ${autoRate.toLocaleString()} coins per second`;
+        }, 3000);
+    }
+}
+
+setInterval(() => {
+    if (!isPaused && autoRate > 0) {
+        coins += autoRate;
+        updateCoins();
+    }
+}, 1000);
+</script>
+
 </body>
 </html>
